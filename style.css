@@ -8,21 +8,42 @@ body {
 }
 
 .global-container {
-
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: darkgray;
 }
 
 .app-container {
-
+    display: flex;
+    flex-direction: column;
+    background: gray;
+    border: solid 1px black;
 }
 
-.screen {
-
+#screen {
+    line-height: 50px;
+    align-items: center;
+    height: 50px;
+    background: white;
+    border: solid 1px black;
+    text-align: right;
 }
 
 .buttons-container {
+    display: flex;
+    flex-direction: row;
+}
 
+.symbols-container {
+    display: flex;
+    flex-direction: row;
 }
 
 .button {
-    
+    width: 50px;
+    height: 50px;
+    background: lightgray;
+    border: solid 1px black;
 }
