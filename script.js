@@ -1,48 +1,76 @@
-let firstValue = '';
-let nextValue = '';
-let mathSymbol = '';
-let cleanScreen = false;
 
-function calculate(result, symbol, nextNumber) {
-    if (symbol === '+') {
-        return parseInt(result) + parseInt(nextNumber);
-    } else if (symbol === '-') {
-        return parseInt(result) - parseInt(nextNumber);
+const buttonsContainer = document.querySelector('.buttons-container');
+const symbolsContainer = document.querySelector('.symbols-container');
+let outputDisplay = document.getElementById('output-display');
+
+let history = '';
+let resetOutput = false;
+
+buttonsContainer.addEventListener('click', function(event) {
+    if (resetOutput === true) {
+        outputDisplay.value = '';
+        resetOutput = false;
     }
-};
-
-const buttonContainer = document.querySelector('.buttons-container');
-const symbolsContainer = document.querySelector('.symbols-container')
-let screen = document.getElementById('screen');
-
-buttonContainer.addEventListener('click', function(event) {
-    if (cleanScreen === true) {
-        screen.innerHTML = '';
-        cleanScreen = false;
-    }
-    screen.innerHTML = screen.innerHTML + event.target.innerHTML;
+    outputDisplay.value += event.target.innerHTML;
 });
 
 symbolsContainer.addEventListener('click', function(event) {
-    if (firstValue !== '') {
-        if (nextValue === '') {
-            nextValue = screen.innerHTML;
-            cleanScreen = true;
-        } else {
-            mathSymbol = event.target.innerHTML;
-            nextValue = '';
-            cleanScreen = true;
-        }  
-    } else {
-        firstValue = screen.innerHTML;
-        mathSymbol = event.target.innerHTML;
-        cleanScreen = true;
-    }
 
-    if (event.target.innerHTML === '=' && nextValue !== '') {
-        let calculation = calculate(firstValue, mathSymbol, nextValue);
-        firstValue = calculation.toString();
-        screen.innerHTML = calculation.toString();
+    let symbol = event.target.innerHTML;
+
+    if (symbol !== '=') {
+        addToHistory(outputDisplay.value, symbol);
+        resetOutput = true;
+    } else if (symbol === '=') {
+        symbol = '';
+        addToHistory(outputDisplay.value, symbol);
+        outputDisplay.value = evaluate();
+        history = '';
     }
-})
+    
+});
+
+function addToHistory(output, symbol) {
+    history += output + symbol;
+}
+
+function evaluate() {
+    let test = eval(history).toString();
+    return test;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let i = 1;
+// let j = 2;
+// let k = 3;
+// let plus = '+';
+
+// let history = '0';
+
+// function addToHistory(output, symbol) {
+//     history += plus + output;
+// }
+
+// function evaluate() {
+//     console.log(eval(history));
+// }
+
+// addToHistory(i, plus);
+// addToHistory(j, plus);
+// addToHistory(k, plus);
+// evaluate();
+
+
+
 
